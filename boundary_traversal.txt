@@ -1,0 +1,89 @@
+
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+    
+    
+    static void printboundary(Node root)
+    {
+        if(root==null)
+        return;
+        
+        System.out.print(">"+ root.data);
+        printleftboundary(root.left);
+         printleaves(root.left);
+         printleaves(root.right);
+        printrightboundary(root.right);
+    }
+    static void printleftboundary(Node root)
+    {
+        if(root==null)
+        return;
+        
+        if(root.left!=null)
+        {
+            System.out.print(">"+root.data);
+            printleftboundary(root.left);
+        }
+        else if(root.right!=null)
+        {
+            System.out.print(">"+root.data);
+            printleftboundary(root.right);
+        }
+    }
+    static void printrightboundary(Node root)
+    {
+        if(root==null)
+        return;
+        
+        if(root.right!=null)
+        {
+            printrightboundary(root.right);
+            System.out.print(">"+root.data);
+        }
+        else if(root.left!=null)
+        {
+            printrightboundary(root.left);
+            System.out.print(">"+root.data);
+        }
+    }
+    static void printleaves(Node root)
+    {
+        if(root==null)
+        return;
+        
+        if(root.left==null && root.right==null)
+        System.out.print(">"+root.data);
+        
+        printleaves(root.left);
+        printleaves(root.right);
+    }
+    
+	public static void main(String[] args) 
+	{
+		Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.right = new Node(7);
+        root.right.left = new Node(6);
+        //root.right.left.left= new Node(9);
+        //root.right.right.left = new Node(11);
+        
+        //printspiral(root);
+        printboundary(root);
+        
+        
+	}
+}

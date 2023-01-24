@@ -1,0 +1,86 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+    static void parentmap(Node root, HashMap<Node,Node> hm)
+    {
+        if(root==null)
+        return;
+        
+        if(root.left!=null)
+        hm.put(root.left,root);
+        
+        if(root.right!=null)
+        hm.put(root.right,root);
+        
+        parentmap(root.left,hm);
+        parentmap(root.right,hm);
+    }
+    static void printnodek(Node root,Node target, int k)
+    {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        
+        HashMap<Node,Node> parent = new HashMap<Node,Node>();
+        parentmap(root,parent);
+        
+        HashSet<Node> visited = new HashSet<Node>();
+        Queue<Node> q = new LinkedList<Node>();
+        
+        q.add(target);
+        while(!q.isEmpty())
+        {
+            int size=q.size();
+            for(int i=0;i<size;i++)
+            {
+                Node curr= q.poll();
+                
+                visited.add(curr);
+                if(k==0)
+                res.add(curr.data);
+                
+                if(curr.left!=null && !visited.contains(curr.left))
+                q.add(curr.left);
+                
+                if(curr.right!=null && !visited.contains(curr.right))
+                q.add(curr.right);
+                
+                if(parent.containsKey(curr) && !visited.contains(parent.get(curr)))
+                q.add(parent.get(curr));
+            }
+            k--;
+            if(k<0)
+            break;
+        }
+        System.out.println(res);
+    }
+	public static void main(String[] args) 
+	{
+		Node root = new Node(10);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(5);
+        root.left.right = new Node(8);
+        root.right.right = new Node(15);
+        root.right.left = new Node(9);
+        root.right.right.left = new Node(11);
+        
+        printnodek(root,root.left.right,4);
+	}
+}

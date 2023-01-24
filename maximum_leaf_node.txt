@@ -1,0 +1,42 @@
+
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+    static int max_data=0;
+    static void maxleft(Node root,boolean isleft)
+    {
+        
+        if(root==null)
+        return;
+        
+        if(isleft==true && root.data>max_data)
+          max_data=root.data;
+        
+        maxleft(root.left,true);
+        maxleft(root.right,false);
+        
+    }
+	public static void main(String[] args) 
+	{
+        Node root = new Node(7);
+    root.left = new Node(6);
+    root.right = new Node(5);
+    root.left.left = new Node(4);
+    root.left.right = new Node(3);
+    root.right.left = new Node(2);
+    root.right.right = new Node(1);
+        maxleft(root,false);
+        System.out.println(max_data);
+        
+	}
+}

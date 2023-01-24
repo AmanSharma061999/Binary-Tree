@@ -1,0 +1,50 @@
+import java.util.*;
+public class Main
+{
+    static class Node
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+            left=null;right=null;
+        }
+    }
+static int sum_max=0;
+    static int largestsumsubtree(Node root)
+    {
+        if(root==null)
+        return 0;
+        
+        int l=largestsumsubtree(root.left);
+        int r=largestsumsubtree(root.right);
+        
+        int curr_sum=root.data+l+r;
+        
+        sum_max=Math.max(sum_max,curr_sum);
+        
+        return curr_sum;
+    }
+    
+	public static void main(String[] args) {
+	
+	Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
+        root.right.right.left = new Node(8);
+        
+        Node root1=new Node(8);
+        
+        largestsumsubtree(root);
+        System.out.println(sum_max);
+        
+        
+        
+	}
+}

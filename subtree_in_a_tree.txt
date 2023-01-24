@@ -1,0 +1,60 @@
+import java.util.*;
+public class Main
+{
+    public static class Node{
+        int data;
+        Node left,right;
+        public Node(int data)
+        {
+            this.data=data;
+            this.left=null;
+            this.right=null;
+        }
+    }
+ static void inorder(Node root,Node subroot)
+    {
+        if(root!=null)
+        {
+            inorder(root.left,subroot);
+            boolean x =match(root,subroot);
+            if(x)
+            System.out.println("YES");
+            inorder(root.right,subroot);
+        }
+    }
+    
+    static boolean match(Node root, Node subroot)
+    {
+        if(root!=null && subroot!=null)
+        {
+            boolean a =match(root.left,subroot.left);
+            boolean b =match(root.right,subroot.right);
+            
+            if(root.data==subroot.data && a && b)
+             return true;
+             else
+             return false;
+        }
+        else if(root==null && subroot==null)
+        return true;
+        else
+        return false;
+    }
+	public static void main(String[] args) {
+		Node root = new Node(10);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(7);
+        root.left.right = new Node(8);
+        root.right.right = new Node(15);
+        root.right.left = new Node(12);
+        root.right.right.left = new Node(14);
+        
+        Node root1 =new Node(2);
+        root1.left= new Node(7);
+        root1.right = new Node(8);
+        
+        Node target = root.left.left;
+        //dist(root,target,2);
+        inorder(root,root1);
+}}

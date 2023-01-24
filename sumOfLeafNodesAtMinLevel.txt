@@ -1,0 +1,67 @@
+
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+    static int min_sum=Integer.MAX_VALUE;
+    static void sumOfLeafNodesAtMinLevel(Node root)
+    {
+        Queue<Node> q = new LinkedList<Node>();
+        q.add(root);
+        
+        boolean flag=false;
+        while(!q.isEmpty() )
+        {
+            int size=q.size();
+            int sum=0;
+            for(int i=0;i<size;i++)
+            {
+                Node curr=q.poll();
+                if(curr.left==null && curr.right==null)
+                {
+                  sum= sum+curr.data;
+                  flag=true;
+                }
+                  
+                 if(curr.left!=null)
+                 q.add(curr.left);
+                 
+                 if(curr.right!=null)
+                 q.add(curr.right);
+                 
+            }
+            if(flag==true)
+            {
+             if(sum<min_sum)
+             min_sum=sum;
+            }
+            flag=false;
+        }
+    }
+	public static void main(String[] args) 
+	{
+    Node root = new Node(1);
+    root.left = new Node(2);
+    root.right = new Node(3);
+    root.left.left = new Node(-14);
+    root.left.right = new Node(5);
+    root.right.left = new Node(6);
+    root.right.right = new Node(7);
+    root.left.right.left = new Node(8);
+    root.right.left.right = new Node(9);
+    
+    sumOfLeafNodesAtMinLevel(root);
+    
+    System.out.println(min_sum);
+     
+	}
+}

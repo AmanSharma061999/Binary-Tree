@@ -1,0 +1,84 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+   
+    static Node LCA(Node root,int n1,int n2)
+    {
+        if(root==null)
+        return null;
+        
+        if(root.data==n1 || root.data==n2)
+        return root;
+        
+        Node left=LCA(root.left,n1,n2);
+        Node right=LCA(root.right,n1,n2);
+        
+        if(left==null)return right;
+        if(right==null)return left;
+        
+        return root;
+    }
+    static void distbetnode(Node root,int a,int b)
+    {
+        Node lca = LCA(root,a,b);
+        
+        System.out.println(lca.data);
+        if(lca==null)
+        return;
+        
+        int d1=distfromparenttoroot(lca,a,0);
+        int d2=distfromparenttoroot(lca,b,0);
+        
+        System.out.print(">"+(d1+d2)+"<");
+    
+    }
+    static int distfromparenttoroot(Node root,int val,int dist)
+    {
+        int d=0; 
+        
+        if(root==null)
+        return -1;
+        
+        if(root.data==val)
+        return dist;
+        
+        d=distfromparenttoroot(root.left,val,dist+1);
+        if(d==-1)
+        return distfromparenttoroot(root.right,val,dist+1);
+        
+        return d;
+
+    }
+	public static void main(String[] args) 
+	{
+		Node root = new Node(10);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(5);
+        root.left.right = new Node(8);
+        root.right.right = new Node(15);
+        root.right.left = new Node(9);
+        root.right.right.left = new Node(11);
+        
+        //System.out.println(LCA(root,5,2).data);
+        distbetnode(root,5,11);
+	}
+}

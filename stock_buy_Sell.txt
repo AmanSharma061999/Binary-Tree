@@ -1,0 +1,50 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+    public static class Interval
+    {
+        int buy,sell;
+    }
+    static void result(int arr[])
+    {
+        int i=0;
+        int n=arr.length-1;
+        int count=0;
+        ArrayList<Interval> sol= new ArrayList<Interval>();
+        while(i<=n)
+        {
+            while(i<n && arr[i+1]<arr[i])
+            i++;
+            
+            if(i==n)
+            break;
+            
+            Interval e = new Interval();
+            e.buy=i;
+            
+            while(i<n && arr[i+1]>arr[i])
+            i++;
+             e.sell=i;
+             
+             sol.add(e);
+             
+             count++;
+        }
+        
+        for(int j=0;j<count;j++)
+        System.out.println("Buy on day "+sol.get(j).buy+"and sell on"+sol.get(j).sell);
+    }
+	public static void main(String[] args) 
+	{
+        int arr[]={100,180,245,310,40,410,695};
+        result(arr);
+	}
+}

@@ -1,0 +1,60 @@
+
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+    static int size=0;
+    
+   static int printdens(Node root,int level)
+   {
+       if(root==null)
+       return 0;
+       
+       size++;
+       
+       int l=printdens(root.left,level+1);
+       int r=printdens(root.right,level+1);
+       
+       return l>r?l+1:r+1;
+   }
+	public static void main(String[] args) 
+	{
+		/*Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.right = new Node(7);
+        root.right.left = new Node(6);
+        root.right.left.left= new Node(9);*/
+        //root.right.right.left = new Node(11);
+        
+        Node root = new Node(5);
+    root.left = new Node(2);
+    root.right = new Node(7);
+    root.left.left = new Node(10);
+    root.left.right = new Node(11);
+    /*root.right.left = new Node(6);
+    root.right.right = new Node(7);*/
+    
+    Node root1= new Node(10);
+    root1.left= new Node(20);
+    root1.right= new Node(30);
+    
+    int height=printdens(root1,0);
+    
+    System.out.println((float)size/height);
+    
+    
+        
+	}
+}

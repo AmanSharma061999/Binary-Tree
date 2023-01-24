@@ -1,0 +1,78 @@
+
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+    static class Pair 
+    {
+        int hd;
+        Node node;
+        Pair(int hd,Node node)
+        {
+            this.hd=hd;
+            this.node=node;
+        }
+    }
+    static void vertical_sum(Node root)
+    {
+        Queue <Pair> q = new ArrayDeque<>();
+        q.add(new Pair(0,root));
+        TreeMap<Integer,ArrayList<Integer>> map= new TreeMap<>();
+        while(!q.isEmpty())
+        {
+            Pair curr = q.poll();
+            if(map.containsKey(curr.hd))
+            map.get(curr.hd).add(curr.node.data);
+            else
+            {
+                ArrayList<Integer> temp = new ArrayList<Integer>();
+                temp.add(curr.node.data);
+                map.put(curr.hd,temp);
+            }
+            if(curr.node.left!=null)
+            q.add(new Pair(curr.hd-1,curr.node.left));
+            
+            if(curr.node.right!=null)
+            q.add(new Pair(curr.hd+1,curr.node.right));
+        }
+       
+         for (Map.Entry mapElement : map.entrySet())
+         {
+             ArrayList<Integer> res= new ArrayList<>();
+             
+             res = (ArrayList)mapElement.getValue();
+             int ind = (int)mapElement.getKey();
+             int sum=0;
+              for(int i=0;i<res.size();i++)
+              {
+                  sum=sum+res.get(i);
+              }
+              System.out.println();
+              System.out.println(ind+" > "+res+" > "+sum);
+         }
+    }
+	public static void main(String[] args) 
+	{
+    Node root = new Node(1);
+    root.left = new Node(2);
+    root.right = new Node(3);
+    root.left.left = new Node(4);
+    root.left.right = new Node(5);
+    root.right.left = new Node(6);
+    root.right.right = new Node(7);
+    root.left.right.left = new Node(8);
+    root.right.left.right = new Node(9);
+    
+    vertical_sum(root);
+     
+	}
+}

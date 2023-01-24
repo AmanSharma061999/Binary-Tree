@@ -1,0 +1,70 @@
+
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+   
+   static int height(Node root)
+   {
+       if(root==null)
+       return 0;
+       
+       return 1+Math.max(height(root.left),height(root.right));
+   }
+   
+    static int diameter(Node root)
+    {
+       if(root==null)
+       return 0;
+       
+       int ld=diameter(root.left);
+       int rd=diameter(root.right);
+       
+       int curr=1+height(root.left)+height(root.right);
+       
+       return Math.max(curr,Math.max(ld,rd));
+    }
+    static void printinorder(Node root)
+    {
+        Stack<Node> st1= new Stack<Node>();
+       Node curr=root;
+        
+        while(curr!=null || st1.size()>0)
+        {
+            
+            while(curr!=null)
+            {
+                st1.push(curr);
+                curr=curr.left;
+            }
+             curr=st1.pop();
+             
+             System.out.print(curr.data+">");
+             
+             curr=curr.right;
+        }
+    }
+    
+	public static void main(String[] args) 
+	{
+    Node root = new Node(1);
+    root.left = new Node(2);
+    root.right = new Node(3);
+    root.left.left = new Node(4);
+    root.left.right = new Node(5);
+    
+     System.out.print(diameter(root));
+     System.out.println();
+     printinorder(root);
+    
+	}
+}

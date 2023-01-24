@@ -1,0 +1,85 @@
+
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+   static int result=Integer.MIN_VALUE;
+   static boolean leafsamelevel(Node root)
+   {
+       Queue<Node> q = new LinkedList<Node>();
+       q.add(root);
+       int level=0;
+       
+       while(!q.isEmpty())
+       {
+           int size=q.size();
+           level++;
+           for(int i=0;i<size;i++)
+           {
+               Node curr = q.poll();
+               if(curr.left!=null)
+               {
+                   q.add(curr.left);
+                   if(curr.left.left==null && curr.left.right==null)
+                   {
+                       if(result==Integer.MIN_VALUE)
+                       result=level;
+                       else if(result!=level)
+                       return false;
+                   }
+               }
+               if(curr.right!=null)
+               {
+                   q.add(curr.right);
+                   if(curr.right.left==null && curr.right.right==null)
+                   {
+                       if(result==Integer.MIN_VALUE)
+                       result=level;
+                       else if(result!=level)
+                       return false;
+                   }
+               }
+           }
+       }
+       return true;
+   }
+	public static void main(String[] args) 
+	{
+		/*Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.right = new Node(7);
+        root.right.left = new Node(6);
+        root.right.left.left= new Node(9);*/
+        //root.right.right.left = new Node(11);
+        
+        Node root = new Node(5);
+    root.left = new Node(2);
+    root.right = new Node(7);
+    root.left.left = new Node(10);
+    root.left.right = new Node(11);
+   
+    
+    Node root1= new Node(10);
+    root1.left= new Node(20);
+    root1.right= new Node(30);
+    
+    
+    
+    System.out.println(leafsamelevel(root1));
+    
+    
+        
+	}
+}

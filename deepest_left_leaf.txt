@@ -1,0 +1,59 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+   
+   static int max_lev=0;
+   static int data;
+   static void deepleftleaf(Node root,int level,boolean isleft)
+   {
+       if(root==null)
+       return;
+       
+       if(isleft!=false && root.left== null && root.right==null && level>max_lev)
+       {
+           max_lev=level;
+           data=root.data;
+       }
+       
+       deepleftleaf(root.left,level+1,isleft=true);
+       deepleftleaf(root.right,level+1,isleft=false);
+       
+   }
+	public static void main(String[] args) 
+	{
+		Node root = new Node(1);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(4);
+        root.left.right = new Node(5);
+        root.right.right = new Node(7);
+        root.right.left = new Node(6);
+        root.right.left.left= new Node(9);
+        //root.right.right.left = new Node(11);
+        
+        //System.out.println(LCA(root,5,2).data);
+        //max_sum_two_leaves(root);
+        //System.out.println(sum_max);
+        //print_spiral(root);
+        deepleftleaf(root,0,false);
+        System.out.println(data);
+	}
+}

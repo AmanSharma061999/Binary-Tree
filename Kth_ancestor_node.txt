@@ -1,0 +1,62 @@
+
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+    static  Stack<Node> st1= new Stack<>();
+    static void printstack(Stack<Node> st2,int k)
+    {
+     while(!st2.empty())
+     {
+         if(k==0)
+         System.out.println(st2.pop().data);
+         st2.pop();
+         k--;
+     }
+    }
+    static void prinKthAncestor(Node root,int k,int val)
+    {
+        if(root==null)
+        return;
+        
+        st1.push(root);
+         if(root.data==val)
+         {
+             printstack(st1,k);
+             st1.clear();
+             return;
+         }
+         
+         prinKthAncestor(root.left,k,val);
+         prinKthAncestor(root.right,k,val);
+         
+         if(!st1.empty())
+         st1.pop();
+         return;
+
+    }
+	public static void main(String[] args) 
+	{
+    Node root = new Node(4);
+    root.left= new Node(2);
+    root.right = new Node(6);
+    root.left.left= new Node(1);
+    root.left.right= new Node(3);
+    root.right.left= new Node(5);
+    root.right.left.left= new Node(10);
+    root.right.left.right= new Node(11);
+    root.right.right= new Node(7);
+        prinKthAncestor(root,1,11);
+     
+    
+	}
+}

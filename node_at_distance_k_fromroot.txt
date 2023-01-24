@@ -1,0 +1,57 @@
+import java.util.*;
+public class Main
+{
+    public static class Node{
+        int data;
+        Node left,right;
+        public Node(int data)
+        {
+            this.data=data;
+            this.left=null;
+            this.right=null;
+        }
+    } 
+    static ArrayList<Integer> ls = new ArrayList<>();
+    static int count=0;
+static void nodeatk(Node node,int k)
+    {
+               if(node==null)
+               return;
+
+                if(k==0)
+                {
+                    ls.add(node.data);
+                    count++;
+                }
+                if(node.left!=null)
+                nodeatk(node.left,k-1);
+                
+                if(node.right!=null)
+                nodeatk(node.right,k-1);
+                
+    }
+public static void main(String[] args) {
+		Node root = new Node(10);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(3);
+        root.left.right = new Node(8);
+        root.right.right = new Node(15);
+        root.right.left = new Node(1);
+        root.right.right.left = new Node(1);
+        
+        Node root1 =new Node(1);
+        
+        Node target = root.right;
+        
+        nodeatk(root,2);
+        if(count!=0)
+        {
+        for(int j=0;j<count;j++)
+        System.out.print(ls.get(j)+" ");
+        }
+        else
+        System.out.println("NO SUCH NODES");
+
+	}
+}

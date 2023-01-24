@@ -1,0 +1,66 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+    public static class Node
+    {
+        int data;
+        Node left,right;
+        public Node(int data)
+        {
+            this.data=data;
+            this.left=null;
+            this.right=null;
+        }
+    }
+    static void printnodeoddlev(Node root)
+    {
+        if(root==null)
+        return;
+        
+        Queue<Node> q= new LinkedList<Node>();
+        boolean isodd=false;
+        q.add(root);
+        while(!q.isEmpty())
+        {
+            int size=q.size();
+            for(int i=0;i<size;i++)
+            {
+            Node curr=q.peek();
+            if(isodd==true)
+                System.out.println(curr.data+" ");
+                 q.remove();
+            if(curr.left!=null)
+            q.add(curr.left);
+            if(curr.right!=null)
+            q.add(curr.right);
+            }
+            isodd=!isodd;
+        }
+    }
+	public static void main(String[] args) {
+	      
+        Node root1 = new Node(1);                 
+    root1.left = new Node(2);         
+    root1.right = new Node(3);         
+    root1.right.left = new Node(5); 
+    root1.right.right = new Node(4); 
+     
+    
+        
+    Node root2 = new Node(1);                            
+    root2.left = new Node(2);        
+    root2.right = new Node(3);         
+    root2.left.left = new Node(4);     
+    root2.left.right = new Node(5);
+    
+    printnodeoddlev(root1);
+	}
+}

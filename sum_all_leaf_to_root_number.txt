@@ -1,0 +1,59 @@
+
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+    static int sum=0;
+    static void findno_print(ArrayList<Node> res)
+    {
+        int number=0;
+        for(int i=0;i<res.size();i++)
+            number=number*10+(res.get(i).data); 
+         sum=sum+number;
+    }
+    static void findsumutil(Node root,ArrayList<Node> res)
+    {
+        if(root==null)
+        return;
+        
+        res.add(root);
+        
+        if(root.left==null && root.right==null)
+            findno_print(res);
+            
+        findsumutil(root.left,res);
+        findsumutil(root.right,res);
+        
+        res.remove(res.size()-1);
+    }
+    static void findsum(Node root)
+    {
+        ArrayList<Node> res = new ArrayList<Node>();
+        
+        findsumutil(root,res);
+    }
+	public static void main(String[] args) 
+	{
+    Node root = new Node(6);
+    root.left = new Node(3);
+    root.right = new Node(5);
+    root.left.left = new Node(2);
+    root.left.right = new Node(5);
+    root.left.right.left = new Node(7);
+    root.left.right.right = new Node(4);
+    root.right.left = new Node(4);
+    
+    findsum(root);
+    System.out.println(sum);
+     
+	}
+}

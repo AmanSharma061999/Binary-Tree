@@ -1,0 +1,50 @@
+import java.util.*;
+public class Main
+{
+    public static class Node
+    {
+        int data;
+        Node left,right;
+        public Node(int data)
+        {
+            this.data=data;
+            this.left=null;
+            this.right=null;
+        }
+    }
+ static void nodebet(Node root,int l,int r)
+    {
+        Queue<Node> q = new LinkedList<Node>();
+        q.add(root);
+        int count=1;
+        
+        while(!q.isEmpty())
+        {
+            int size=q.size();
+            for(int i=0;i<size;i++)
+            {
+                Node curr=q.poll();
+                if(count>=l && count<=r)
+                System.out.print(curr.data+">");
+                
+                if(curr.left!=null)
+                q.add(curr.left);
+                if(curr.right!=null)
+                q.add(curr.right);
+            }
+            count++;
+        }
+    }
+public static void main(String[] args) {
+	      
+        Node root1 = new Node(1);                 
+    root1.left = new Node(2);         
+    root1.right = new Node(3);         
+    root1.right.left = new Node(5); 
+    root1.right.right = new Node(4);
+    root1.left.right=new Node(14);
+    root1.left.left=new Node(20);
+
+    nodebet(root1,2,3);
+}
+}

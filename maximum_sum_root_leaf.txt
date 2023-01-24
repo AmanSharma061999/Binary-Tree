@@ -1,0 +1,59 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+    public static class Node{
+        int data;
+        Node left,right;
+        public Node(int data)
+        {
+            this.data=data;
+            this.left=null;
+            this.right=null;
+        }
+    }
+    static int max_sum=0;
+    static Node target;
+    static int max_sum_root_leaf(Node root,int sum)
+    {
+        if(root==null)
+        return 0;
+        
+        sum=sum+root.data;
+        
+        if(root.left==null && root.right==null && sum>max_sum)
+        {
+            max_sum=sum;
+            target=root;
+        }
+        
+        max_sum_root_leaf(root.left,sum);
+        max_sum_root_leaf(root.right,sum);
+        
+        return sum;
+    }
+	public static void main(String[] args) {
+		Node root = new Node(10);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(3);
+        root.left.right = new Node(8);
+        root.right.right = new Node(0);
+        root.right.left = new Node(1);
+        
+        Node root1 =new Node(1);
+        root1.left=new Node(2);
+        root1.right=new Node(3);
+        
+        max_sum_root_leaf(root,0);
+        System.out.println(max_sum);
+        
+	}
+}

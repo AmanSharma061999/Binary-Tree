@@ -1,0 +1,56 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+    static int sum_max=Integer.MIN_VALUE;
+    static int max_sum_two_leaves(Node root)
+    {
+        if(root==null)
+        return 0;
+        
+        if(root.left==null && root.right==null)
+        return root.data;
+        
+        int ls=Math.max(0,max_sum_two_leaves(root.left));
+        int rs=Math.max(0,max_sum_two_leaves(root.right));
+        
+        if(root.left!=null && root.right!=null)
+        {
+            sum_max=Math.max(sum_max,ls+rs+root.data);
+            return Math.max(ls,rs)+root.data;
+        }
+         return root.left==null?rs+root.data:ls+root.data;
+    }
+	public static void main(String[] args) 
+	{
+		Node root = new Node(10);
+        root.left = new Node(2);
+        root.right = new Node(3);
+        root.left.left = new Node(5);
+        root.left.right = new Node(8);
+        root.right.right = new Node(15);
+        root.right.left = new Node(9);
+        root.right.right.left = new Node(11);
+        
+        //System.out.println(LCA(root,5,2).data);
+        max_sum_two_leaves(root);
+        System.out.println(sum_max);
+	}
+}

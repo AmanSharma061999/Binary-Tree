@@ -1,0 +1,78 @@
+
+import java.util.*;
+public class Main
+{
+    public static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+        }
+    }
+    static int max_len;
+    static int max_bends;
+    static final char LEFT='L';
+    static final char RIGHT='R';
+    static void maxbend(Node root,char dir,int len,int bends)
+    {
+        if(root==null)
+        return;
+        
+        if(root.left==null && root.right==null)
+        {
+            if(bends>max_bends)
+            {
+                max_len=len;
+                max_bends=bends;
+            }
+        }
+        
+        if(dir=='L')
+        {
+            maxbend(root.left,dir,len+1,bends);
+            maxbend(root.right,RIGHT,len+1,bends+1);
+        }
+        else
+        {
+            maxbend(root.right,dir,len+1,bends);
+            maxbend(root.left,LEFT,len+1,bends+1);
+        }
+    }
+    static void max_bends_util(Node root)
+    {
+        if(root==null)
+        return;
+        
+        if(root!=null)
+        maxbend(root.left,LEFT,1,1);
+        
+        if(root.right!=null)
+        maxbend(root.right,RIGHT,1,1);
+        
+        System.out.println(max_bends);
+    }
+	public static void main(String[] args) 
+	{
+    Node root = new Node(4);
+    root.left= new Node(2);
+    root.right = new Node(6);
+    root.left.left= new Node(1);
+    root.left.right= new Node(3);
+    root.right.left= new Node(5);
+    root.right.right= new Node(7);
+     root.right.right.left= new Node(9);
+     root.right.right.left.left= new Node(12);
+     root.right.right.left.right= new Node(10);
+      root.right.right.left.right.right= new Node(11);
+       root.right.right.left.right.right.left= new Node(45);
+        root.right.right.left.right.right.right= new Node(13);
+        root.right.right.left.right.right.right= new Node(14);
+        
+        max_bends_util(root);
+     
+    
+	}
+}

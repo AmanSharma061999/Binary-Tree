@@ -1,0 +1,53 @@
+import java.util.*;
+public class Main
+{
+    static class Node 
+    {
+        int data;
+        Node left;
+        Node right;
+        Node(int data)
+        {
+            this.data=data;
+            left=right=null;
+        }
+    }
+    static class count 
+    {
+        int cou=0;
+    }
+    static boolean univaltree(Node root,count c)
+    {
+        if(root==null)
+        return true;
+        
+        boolean left=univaltree(root.left,c);
+        boolean right=univaltree(root.right,c);
+        
+        if(root.left!=null && root.left.data!=root.data)
+        return false;
+        
+        if(root.right!=null && root.right.data!=root.data)
+        return false;
+        
+        c.cou++;
+        return true;
+    }
+    static int finduni(Node root)
+    {
+        count ct = new count();
+        univaltree(root,ct);
+        return ct.cou;
+        
+    }
+	public static void main(String[] args)
+	{
+	Node root = new Node(5);
+	root.left= new Node(4);
+	root.right=new Node(5);
+	root.left.left=new Node(4);
+	root.left.right=new Node(4);
+	root.right.right=new Node(5);
+	System.out.println(finduni(root));
+	}
+}

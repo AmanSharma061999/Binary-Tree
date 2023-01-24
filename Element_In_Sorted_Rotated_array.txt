@@ -1,0 +1,49 @@
+public class Main
+{
+    static int pvtpoint(int arr[])
+    {
+        int n=arr.length-1;
+      for(int i=n;i>=0;i--)
+      if(arr[i]<arr[i-1])
+      return i-1;
+      
+      return -1;
+            
+    }
+    static int binaryfind(int arr[],int n,int target)
+    {
+        int pvt = pvtpoint(arr);
+        if(pvt==-1)
+        return binarysearch(arr,0,n-1,target);
+        
+        if(arr[pvt]==target)
+        return pvt;
+        if(arr[0]<=target)
+        return binarysearch(arr,0,pvt-1,target);
+        return binarysearch(arr,pvt+1,n-1,target);
+        
+        
+    }
+    static int binarysearch(int arr[],int low,int high,int key)
+    {
+        if(high<low)
+        return -1;
+        int mid=(low+high)/2;
+        if(key==arr[mid])
+        return mid;
+        if(key>arr[mid])
+        return binarysearch(arr,(mid+1),high,key);
+        return binarysearch(arr,low,(mid-1),key);
+    }
+    static void printArray(int arr[])
+    {
+        int n=arr.length-1;
+        for(int i=0;i<=n;i++)
+        System.out.print(arr[i]+" ");
+    }
+	public static void main(String[] args) {
+		int arr[]={50,60,90,100,20,30,40};
+		System.out.println(binaryfind(arr,arr.length-1,100));
+		//System.out.println(pvtpoint(arr));	
+	}
+}
